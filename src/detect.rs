@@ -90,7 +90,7 @@ fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
         Lang::Ind => "indonesian",
         Lang::Msa => "indonesian", // Malay → Indonesian analyzer
         Lang::Tgl => "standard",   // Tagalog
-        Lang::Vie => "standard",   // Vietnamese — planned P2
+        Lang::Vie => "vietnamese",  // Vietnamese compound word tokenizer
         Lang::Tha => "thai",
         Lang::Khm => "standard",   // Khmer
         Lang::Mya => "standard",   // Burmese

@@ -1,0 +1,21 @@
+[package]
+name = "pizza-analysis-auto"
+version = "0.1.0"
+authors = ["INFINI Labs <hello@infini.ltd>"]
+edition = "2021"
+license = "MIT"
+description = "Auto language-detection analyzer for INFINI Pizza — uses whatlang to select the best language analyzer at analysis time"
+repository = "https://github.com/pizza-rs/analysis-auto"
+
+[features]
+default = ["std"]
+std = ["pizza-engine/std"]
+
+[dependencies]
+pizza-engine = { path = "../../lib/engine", default-features = false }
+whatlang = "0.16"
+hashbrown = { version = "0.14", default-features = false }
+
+[dev-dependencies]
+
+[workspace]

@@ -8,9 +8,10 @@ use alloc::vec::Vec;
 
 use pizza_engine::analysis::{Token, TokenFilter};
 
-/// Minimum confidence threshold for language detection.
+/// Default minimum confidence threshold for language detection.
 /// Below this, we fall back to the `"standard"` analyzer.
-const CONFIDENCE_THRESHOLD: f64 = 0.3;
+/// Can be overridden per-instance via `AutoTokenizer::set_confidence_threshold()`.
+pub const DEFAULT_CONFIDENCE_THRESHOLD: f64 = 0.3;
 
 /// Default analyzer used when detection fails or confidence is too low.
 pub const FALLBACK_ANALYZER: &str = "standard";
@@ -18,10 +19,11 @@ pub const FALLBACK_ANALYZER: &str = "standard";
 /// Detect the language of `text` and return the Pizza analyzer name.
 ///
 /// Returns `None` if whatlang cannot detect with sufficient confidence.
+/// Uses the default threshold; for configurable threshold see [`AutoTokenizer`].
 pub fn detect_language(text: &str) -> Option<&'static str> {
     let info = whatlang::detect(text)?;
 
-    if info.confidence() < CONFIDENCE_THRESHOLD {
+    if info.confidence() < DEFAULT_CONFIDENCE_THRESHOLD {
         return None;
     }
 
@@ -29,7 +31,7 @@ pub fn detect_language(text: &str) -> Option<&'static str> {
 }
 
 /// Map a whatlang `Lang` to the analyzer name registered in the Pizza factory.
-fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
+pub fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
     use whatlang::Lang;
 
     match lang {
@@ -77,10 +79,10 @@ fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
         Lang::Ben => "bengali",
         Lang::Mar => "hindi", // Marathi uses Devanagari, Hindi analyzer is close
         Lang::Nep => "hindi", // Nepali uses Devanagari
-        Lang::Tam => "standard", // Tamil — no dedicated analyzer yet
-        Lang::Tel => "standard", // Telugu — no dedicated analyzer yet
-        Lang::Kan => "standard", // Kannada
-        Lang::Mal => "standard", // Malayalam
+        Lang::Tam => "tamil",
+        Lang::Tel => "telugu",
+        Lang::Kan => "kannada",
+        Lang::Mal => "malayalam",
         Lang::Guj => "standard", // Gujarati
         Lang::Pan => "standard", // Punjabi
         Lang::Sin => "standard", // Sinhala
@@ -96,9 +98,9 @@ fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
         Lang::Mya => "standard",   // Burmese
 
         // East Asian
-        Lang::Cmn => "cjk", // Chinese (Mandarin) — cjk bigram; ik/jieba/smartcn for better results
-        Lang::Jpn => "cjk", // Japanese — cjk bigram; kuromoji for better results
-        Lang::Kor => "cjk", // Korean — cjk bigram; nori for better results
+        Lang::Cmn => "ik",  // Chinese (Mandarin)
+        Lang::Jpn => "kuromoji", // Japanese
+        Lang::Kor => "nori",     // Korean
 
         // Middle Eastern
         Lang::Ara => "arabic",
@@ -162,17 +164,17 @@ mod tests {
 
     #[test]
     fn detect_chinese() {
-        assert_eq!(detect_language("你好世界，今天天气怎么样"), Some("cjk"));
+        assert_eq!(detect_language("你好世界，今天天气怎么样"), Some("smartcn"));
     }
 
     #[test]
     fn detect_japanese() {
-        assert_eq!(detect_language("こんにちは世界、今日はいい天気ですね"), Some("cjk"));
+        assert_eq!(detect_language("こんにちは世界、今日はいい天気ですね"), Some("kuromoji"));
     }
 
     #[test]
     fn detect_korean() {
-        assert_eq!(detect_language("안녕하세요 세계, 오늘 날씨가 좋습니다"), Some("cjk"));
+        assert_eq!(detect_language("안녕하세요 세계, 오늘 날씨가 좋습니다"), Some("nori"));
     }
 
     #[test]

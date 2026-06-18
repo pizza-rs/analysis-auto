@@ -140,7 +140,7 @@ fn lang_to_code(lang: whatlang::Lang) -> &'static str {
         Lang::Swe => "swe",
         Lang::Fin => "fin",
         Lang::Dan => "dan",
-        Lang::Nor => "nor",
+        Lang::Nob => "nor",
         Lang::Hun => "hun",
         Lang::Ron => "ron",
         Lang::Cat => "cat",
@@ -172,7 +172,6 @@ fn lang_to_code(lang: whatlang::Lang) -> &'static str {
         Lang::Sin => "sin",
         Lang::Urd => "urd",
         Lang::Ind => "ind",
-        Lang::Msa => "msa",
         Lang::Tgl => "tgl",
         Lang::Vie => "vie",
         Lang::Tha => "tha",
@@ -182,10 +181,9 @@ fn lang_to_code(lang: whatlang::Lang) -> &'static str {
         Lang::Jpn => "jpn",
         Lang::Kor => "kor",
         Lang::Ara => "ara",
-        Lang::Fas => "fas",
+        Lang::Pes => "fas",
         Lang::Heb => "heb",
         Lang::Amh => "amh",
-        Lang::Swa => "swa",
         _ => "und", // undetermined
     }
 }

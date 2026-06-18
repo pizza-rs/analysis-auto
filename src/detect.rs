@@ -46,7 +46,7 @@ pub fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
         Lang::Swe => "swedish",
         Lang::Fin => "finnish",
         Lang::Dan => "danish",
-        Lang::Nor => "norwegian",
+        Lang::Nob => "norwegian",
         Lang::Hun => "hungarian",
         Lang::Ron => "romanian",
         Lang::Cat => "catalan",
@@ -90,7 +90,6 @@ pub fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
 
         // Southeast Asian
         Lang::Ind => "indonesian",
-        Lang::Msa => "indonesian", // Malay → Indonesian analyzer
         Lang::Tgl => "standard",   // Tagalog
         Lang::Vie => "vietnamese",  // Vietnamese compound word tokenizer
         Lang::Tha => "thai",
@@ -104,12 +103,11 @@ pub fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
 
         // Middle Eastern
         Lang::Ara => "arabic",
-        Lang::Fas => "persian",
+        Lang::Pes => "persian",
         Lang::Heb => "standard", // Hebrew — no dedicated analyzer yet
 
         // African
         Lang::Amh => "standard", // Amharic
-        Lang::Swa => "standard", // Swahili
 
         // Catch-all
         _ => FALLBACK_ANALYZER,
@@ -258,7 +256,7 @@ mod tests {
             (whatlang::Lang::Nld, "dutch"),
             (whatlang::Lang::Rus, "russian"),
             (whatlang::Lang::Ara, "arabic"),
-            (whatlang::Lang::Fas, "persian"),
+            (whatlang::Lang::Pes, "persian"),
             (whatlang::Lang::Hin, "hindi"),
             (whatlang::Lang::Ben, "bengali"),
             (whatlang::Lang::Tur, "turkish"),
@@ -266,7 +264,7 @@ mod tests {
             (whatlang::Lang::Fin, "finnish"),
             (whatlang::Lang::Hun, "hungarian"),
             (whatlang::Lang::Swe, "swedish"),
-            (whatlang::Lang::Nor, "norwegian"),
+            (whatlang::Lang::Nob, "norwegian"),
             (whatlang::Lang::Ind, "indonesian"),
         ];
         for (lang, expected) in important {

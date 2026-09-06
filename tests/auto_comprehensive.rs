@@ -1,6 +1,6 @@
 //! Comprehensive tests for the `auto` language-detection analyzer.
 
-use pizza_analysis_auto::detect::detect_language;
+use pizza_analysis_auto::detect_language;
 
 // ── Language detection accuracy ─────────────────────────────────────────
 

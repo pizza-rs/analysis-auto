@@ -6,7 +6,8 @@
 use alloc::borrow::Cow;
 use alloc::vec::Vec;
 
-use pizza_engine::analysis::{Token, TokenFilter};
+use pizza_engine::analysis::Token;
+use pizza_engine::analysis::TokenFilter;
 
 /// Default minimum confidence threshold for language detection.
 /// Below this, we fall back to the `"standard"` analyzer.
@@ -91,13 +92,13 @@ pub fn whatlang_to_analyzer(lang: whatlang::Lang) -> &'static str {
         // Southeast Asian
         Lang::Ind => "indonesian",
         Lang::Tgl => "standard",   // Tagalog
-        Lang::Vie => "vietnamese",  // Vietnamese compound word tokenizer
+        Lang::Vie => "vietnamese", // Vietnamese compound word tokenizer
         Lang::Tha => "thai",
-        Lang::Khm => "standard",   // Khmer
-        Lang::Mya => "standard",   // Burmese
+        Lang::Khm => "standard", // Khmer
+        Lang::Mya => "standard", // Burmese
 
         // East Asian
-        Lang::Cmn => "ik",  // Chinese (Mandarin)
+        Lang::Cmn => "ik",       // Chinese (Mandarin)
         Lang::Jpn => "kuromoji", // Japanese
         Lang::Kor => "nori",     // Korean
 
@@ -147,7 +148,10 @@ mod tests {
 
     #[test]
     fn detect_french() {
-        assert_eq!(detect_language("Bonjour le monde, comment allez-vous aujourd'hui"), Some("french"));
+        assert_eq!(
+            detect_language("Bonjour le monde, comment allez-vous aujourd'hui"),
+            Some("french")
+        );
     }
 
     #[test]
@@ -157,27 +161,42 @@ mod tests {
 
     #[test]
     fn detect_spanish() {
-        assert_eq!(detect_language("Hola mundo, cómo estás hoy en este día"), Some("spanish"));
+        assert_eq!(
+            detect_language("Hola mundo, cómo estás hoy en este día"),
+            Some("spanish")
+        );
     }
 
     #[test]
     fn detect_chinese() {
-        assert_eq!(detect_language("你好世界，今天天气怎么样，我们一起去公园散步然后再去吃午饭好不好呀"), Some("ik"));
+        assert_eq!(
+            detect_language("你好世界，今天天气怎么样，我们一起去公园散步然后再去吃午饭好不好呀"),
+            Some("ik")
+        );
     }
 
     #[test]
     fn detect_japanese() {
-        assert_eq!(detect_language("こんにちは世界、今日はいい天気ですね"), Some("kuromoji"));
+        assert_eq!(
+            detect_language("こんにちは世界、今日はいい天気ですね"),
+            Some("kuromoji")
+        );
     }
 
     #[test]
     fn detect_korean() {
-        assert_eq!(detect_language("안녕하세요 세계, 오늘 날씨가 좋습니다"), Some("nori"));
+        assert_eq!(
+            detect_language("안녕하세요 세계, 오늘 날씨가 좋습니다"),
+            Some("nori")
+        );
     }
 
     #[test]
     fn detect_arabic() {
-        assert_eq!(detect_language("مرحبا بالعالم، كيف حالك اليوم"), Some("arabic"));
+        assert_eq!(
+            detect_language("مرحبا بالعالم، كيف حالك اليوم"),
+            Some("arabic")
+        );
     }
 
     #[test]
@@ -197,17 +216,28 @@ mod tests {
 
     #[test]
     fn detect_portuguese() {
-        assert_eq!(detect_language("Olá mundo, como você está hoje neste dia"), Some("portuguese"));
+        assert_eq!(
+            detect_language("Olá mundo, como você está hoje neste dia"),
+            Some("portuguese")
+        );
     }
 
     #[test]
     fn detect_italian() {
-        assert_eq!(detect_language("Ciao mondo, come stai oggi in questa giornata"), Some("italian"));
+        assert_eq!(
+            detect_language("Ciao mondo, come stai oggi in questa giornata"),
+            Some("italian")
+        );
     }
 
     #[test]
     fn detect_persian() {
-        assert_eq!(detect_language("سلام دنیا، حال شما چطور است امروز و آیا برنامه‌ای برای تعطیلات آخر هفته دارید یا نه"), Some("persian"));
+        assert_eq!(
+            detect_language(
+                "سلام دنیا، حال شما چطور است امروز و آیا برنامه‌ای برای تعطیلات آخر هفته دارید یا نه"
+            ),
+            Some("persian")
+        );
     }
 
     #[test]
@@ -217,17 +247,26 @@ mod tests {
 
     #[test]
     fn detect_swedish() {
-        assert_eq!(detect_language("Hej världen, hur mår du idag på denna dag"), Some("swedish"));
+        assert_eq!(
+            detect_language("Hej världen, hur mår du idag på denna dag"),
+            Some("swedish")
+        );
     }
 
     #[test]
     fn detect_indonesian() {
-        assert_eq!(detect_language("Halo dunia, apa kabar hari ini semuanya"), Some("indonesian"));
+        assert_eq!(
+            detect_language("Halo dunia, apa kabar hari ini semuanya"),
+            Some("indonesian")
+        );
     }
 
     #[test]
     fn detect_greek() {
-        assert_eq!(detect_language("Γεια σου κόσμε, πώς είσαι σήμερα"), Some("greek"));
+        assert_eq!(
+            detect_language("Γεια σου κόσμε, πώς είσαι σήμερα"),
+            Some("greek")
+        );
     }
 
     #[test]
@@ -268,7 +307,12 @@ mod tests {
             (whatlang::Lang::Ind, "indonesian"),
         ];
         for (lang, expected) in important {
-            assert_eq!(whatlang_to_analyzer(lang), expected, "mismatch for {:?}", lang);
+            assert_eq!(
+                whatlang_to_analyzer(lang),
+                expected,
+                "mismatch for {:?}",
+                lang
+            );
         }
     }
 }

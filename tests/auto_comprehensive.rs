@@ -143,7 +143,9 @@ fn detect_swedish_prose() {
 #[test]
 fn detect_norwegian_prose() {
     assert_eq!(
-        detect_language("Jeg liker å gå på ski i fjellet om vinteren og bade i fjorden om sommeren i Norge"),
+        detect_language(
+            "Jeg liker å gå på ski i fjellet om vinteren og bade i fjorden om sommeren i Norge"
+        ),
         Some("norwegian")
     );
 }
@@ -215,7 +217,7 @@ fn single_word_may_detect() {
 fn mixed_language_text() {
     // Mixed text should still detect the dominant language
     let result = detect_language(
-        "This is English text mixed with 一些中文内容 and more English words following it"
+        "This is English text mixed with 一些中文内容 and more English words following it",
     );
     // Should detect something (likely English since it's dominant)
     assert!(result.is_some());
@@ -235,11 +237,26 @@ fn unicode_emoji_text() {
 fn all_major_languages_map_to_non_standard() {
     // Verify that major world languages get a specific (non-"standard") analyzer
     let test_texts = [
-        ("The quick brown fox jumps over the lazy dog in the forest", "english"),
-        ("Le renard brun rapide saute par-dessus le chien paresseux", "french"),
-        ("Der schnelle braune Fuchs springt über den faulen Hund", "german"),
-        ("Быстрая коричневая лиса прыгает через ленивую собаку", "russian"),
-        ("الثعلب البني السريع يقفز فوق الكلب الكسول بالقرب من النهر", "arabic"),
+        (
+            "The quick brown fox jumps over the lazy dog in the forest",
+            "english",
+        ),
+        (
+            "Le renard brun rapide saute par-dessus le chien paresseux",
+            "french",
+        ),
+        (
+            "Der schnelle braune Fuchs springt über den faulen Hund",
+            "german",
+        ),
+        (
+            "Быстрая коричневая лиса прыгает через ленивую собаку",
+            "russian",
+        ),
+        (
+            "الثعلب البني السريع يقفز فوق الكلب الكسول بالقرب من النهر",
+            "arabic",
+        ),
         ("तेज भूरी लोमड़ी आलसी कुत्ते के ऊपर कूदती है", "hindi"),
         ("快速的棕色狐狸跳过了懒惰的狗在森林里", "ik"),
     ];
@@ -261,48 +278,42 @@ fn all_major_languages_map_to_non_standard() {
 #[test]
 fn detect_polish_longer_text() {
     let result = detect_language(
-        "Szybki brązowy lis przeskakuje nad leniwym psem leżącym obok rzeki w lesie"
+        "Szybki brązowy lis przeskakuje nad leniwym psem leżącym obok rzeki w lesie",
     );
     assert_eq!(result, Some("polish"));
 }
 
 #[test]
 fn detect_czech_longer_text() {
-    let result = detect_language(
-        "Rychlá hnědá liška skáče přes líného psa ležícího u řeky v lese"
-    );
+    let result = detect_language("Rychlá hnědá liška skáče přes líného psa ležícího u řeky v lese");
     assert_eq!(result, Some("czech"));
 }
 
 #[test]
 fn detect_romanian_longer_text() {
-    let result = detect_language(
-        "Vulpea maro rapidă sare peste câinele leneș care stă lângă râu în pădure"
-    );
+    let result =
+        detect_language("Vulpea maro rapidă sare peste câinele leneș care stă lângă râu în pădure");
     assert_eq!(result, Some("romanian"));
 }
 
 #[test]
 fn detect_ukrainian_longer_text() {
-    let result = detect_language(
-        "Швидка коричнева лисиця стрибає через ледачого собаку біля річки"
-    );
+    let result =
+        detect_language("Швидка коричнева лисиця стрибає через ледачого собаку біля річки");
     assert_eq!(result, Some("ukrainian"));
 }
 
 #[test]
 fn detect_bulgarian_longer_text() {
-    let result = detect_language(
-        "Бързата кафява лисица скача над мързеливото куче край реката в гората"
-    );
+    let result =
+        detect_language("Бързата кафява лисица скача над мързеливото куче край реката в гората");
     assert_eq!(result, Some("bulgarian"));
 }
 
 #[test]
 fn detect_croatian_longer_text() {
-    let result = detect_language(
-        "Brza smeđa lisica preskače lijenog psa koji leži pokraj rijeke u šumi"
-    );
+    let result =
+        detect_language("Brza smeđa lisica preskače lijenog psa koji leži pokraj rijeke u šumi");
     // Croatian/Serbian are very similar; either is acceptable
     let detected = result.unwrap_or("standard");
     assert!(

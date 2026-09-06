@@ -12,7 +12,9 @@ use alloc::string::String;
 use alloc::vec::Vec;
 
 use hashbrown::HashMap;
-use pizza_engine::analysis::{Analyzer, Token, Tokenizer};
+use pizza_engine::analysis::Analyzer;
+use pizza_engine::analysis::Token;
+use pizza_engine::analysis::Tokenizer;
 
 use crate::detect::FALLBACK_ANALYZER;
 
@@ -195,7 +197,8 @@ impl Tokenizer for AutoTokenizer {
         // We need an owned copy because the selected analyzer's normalizers
         // mutate the string in-place before tokenizing.
         let mut input = String::from(text);
-        analyzer.analyze_and_return_tokens(&mut input)
+        analyzer
+            .analyze_and_return_tokens(&mut input)
             .into_iter()
             .map(|t| Token {
                 // Convert back to owned since the original `input` will be dropped
@@ -211,16 +214,13 @@ impl Tokenizer for AutoTokenizer {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pizza_engine::analysis::{Analyzer, Tokenizer as _};
     use pizza_engine::analysis::tokenizers::StandardTokenizer;
+    use pizza_engine::analysis::Analyzer;
+    use pizza_engine::analysis::Tokenizer as _;
 
     fn make_auto() -> AutoTokenizer {
         // Simple test setup: only "standard" in the map
-        let standard = Analyzer::new(
-            vec![],
-            Box::new(StandardTokenizer::new()),
-            vec![],
-        );
+        let standard = Analyzer::new(vec![], Box::new(StandardTokenizer::new()), vec![]);
         let mut map = HashMap::new();
         map.insert("standard".into(), standard.clone());
         map.insert("english".into(), standard.clone());

@@ -3,7 +3,8 @@
 use alloc::string::String;
 
 use hashbrown::HashMap;
-use pizza_engine::analysis::{Analyzer, AnalysisFactory};
+use pizza_engine::analysis::AnalysisFactory;
+use pizza_engine::analysis::Analyzer;
 
 use crate::auto_analyzer::AutoTokenizer;
 use crate::detect::LanguageDetectTokenFilter;
@@ -95,12 +96,15 @@ pub fn register_all(factory: &mut AnalysisFactory) {
     // Register the `auto` analyzer: AutoTokenizer does all the work internally,
     // so the wrapping Analyzer has no normalizers or token filters.
     let auto_analyzer = Analyzer::new(
-        vec![],                    // no normalizers (handled by delegated analyzer)
-        Box::new(auto_tokenizer),  // language-detecting tokenizer
-        vec![],                    // no token filters (handled by delegated analyzer)
+        vec![],                   // no normalizers (handled by delegated analyzer)
+        Box::new(auto_tokenizer), // language-detecting tokenizer
+        vec![],                   // no token filters (handled by delegated analyzer)
     );
     factory.register_analyzer("auto", auto_analyzer);
 
     // Register the standalone language_detect token filter for use in custom pipelines
-    factory.register_token_filter("language_detect", Box::new(LanguageDetectTokenFilter::new()));
+    factory.register_token_filter(
+        "language_detect",
+        Box::new(LanguageDetectTokenFilter::new()),
+    );
 }

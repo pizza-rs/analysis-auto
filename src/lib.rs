@@ -35,5 +35,7 @@ mod detect;
 pub mod register;
 
 pub use auto_analyzer::AutoTokenizer;
-pub use detect::{detect_language, LanguageDetectTokenFilter, DEFAULT_CONFIDENCE_THRESHOLD};
+pub use detect::detect_language;
+pub use detect::LanguageDetectTokenFilter;
+pub use detect::DEFAULT_CONFIDENCE_THRESHOLD;
 pub use register::register_all;

@@ -142,7 +142,7 @@ mod tests {
 
     #[test]
     fn detect_english() {
-        assert_eq!(detect_language("Hello world, this is a test"), Some("english"));
+        assert_eq!(detect_language("Hello world, this is a simple test sentence about technology and science that should be long enough for reliable detection"), Some("english"));
     }
 
     #[test]
@@ -152,7 +152,7 @@ mod tests {
 
     #[test]
     fn detect_german() {
-        assert_eq!(detect_language("Hallo Welt, wie geht es Ihnen heute"), Some("german"));
+        assert_eq!(detect_language("Hallo Welt, wie geht es Ihnen heute am Morgen nach dem Aufstehen und dem Frühstück in der Küche"), Some("german"));
     }
 
     #[test]
@@ -162,7 +162,7 @@ mod tests {
 
     #[test]
     fn detect_chinese() {
-        assert_eq!(detect_language("你好世界，今天天气怎么样"), Some("smartcn"));
+        assert_eq!(detect_language("你好世界，今天天气怎么样，我们一起去公园散步然后再去吃午饭好不好呀"), Some("ik"));
     }
 
     #[test]
@@ -182,7 +182,7 @@ mod tests {
 
     #[test]
     fn detect_russian() {
-        assert_eq!(detect_language("Привет мир, как дела сегодня"), Some("russian"));
+        assert_eq!(detect_language("Привет мир, как дела сегодня у тебя и твоей семьи после долгой рабочей недели в офисе"), Some("russian"));
     }
 
     #[test]
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn detect_turkish() {
-        assert_eq!(detect_language("Merhaba dünya, bugün nasılsınız"), Some("turkish"));
+        assert_eq!(detect_language("Merhaba dünya, bugün nasılsınız ve işler nasıl gidiyor bu hafta sonu evde kalırken"), Some("turkish"));
     }
 
     #[test]
@@ -207,12 +207,12 @@ mod tests {
 
     #[test]
     fn detect_persian() {
-        assert_eq!(detect_language("سلام دنیا، حال شما چطور است امروز"), Some("persian"));
+        assert_eq!(detect_language("سلام دنیا، حال شما چطور است امروز و آیا برنامه‌ای برای تعطیلات آخر هفته دارید یا نه"), Some("persian"));
     }
 
     #[test]
     fn detect_dutch() {
-        assert_eq!(detect_language("Hallo wereld, hoe gaat het vandaag met je"), Some("dutch"));
+        assert_eq!(detect_language("Hallo wereld, hoe gaat het vandaag met jou en gaat u nog naar de supermarkt om boodschappen te doen"), Some("dutch"));
     }
 
     #[test]

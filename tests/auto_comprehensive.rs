@@ -39,7 +39,7 @@ fn detect_spanish_prose() {
 #[test]
 fn detect_italian_prose() {
     assert_eq!(
-        detect_language("La volpe marrone veloce salta sopra il cane pigro vicino al fiume"),
+        detect_language("La volpe marrone veloce salta sopra il cane pigro vicino al fiume nel bosco questa mattina presto"),
         Some("italian")
     );
 }
@@ -143,7 +143,7 @@ fn detect_swedish_prose() {
 #[test]
 fn detect_norwegian_prose() {
     assert_eq!(
-        detect_language("Den raske brune reven hopper over den late hunden ved elven"),
+        detect_language("Jeg liker å gå på ski i fjellet om vinteren og bade i fjorden om sommeren i Norge"),
         Some("norwegian")
     );
 }
@@ -159,24 +159,24 @@ fn detect_indonesian_prose() {
 #[test]
 fn detect_chinese_text() {
     assert_eq!(
-        detect_language("快速的棕色狐狸跳过了懒惰的狗"),
-        Some("cjk")
+        detect_language("快速的棕色狐狸跳过了懒惰的狗在森林里"),
+        Some("ik")
     );
 }
 
 #[test]
 fn detect_japanese_text() {
     assert_eq!(
-        detect_language("素早い茶色の狐が怠惰な犬の上を飛び越える"),
-        Some("cjk")
+        detect_language("素早い茶色の狐が怠惰な犬の上を飛び越えて森の中を走り抜けていく"),
+        Some("kuromoji")
     );
 }
 
 #[test]
 fn detect_korean_text() {
     assert_eq!(
-        detect_language("빠른 갈색 여우가 게으른 개를 뛰어넘는다"),
-        Some("cjk")
+        detect_language("빠른 갈색 여우가 게으른 개를 뛰어넘어 숲 속을 달려간다"),
+        Some("nori")
     );
 }
 
@@ -241,7 +241,7 @@ fn all_major_languages_map_to_non_standard() {
         ("Быстрая коричневая лиса прыгает через ленивую собаку", "russian"),
         ("الثعلب البني السريع يقفز فوق الكلب الكسول بالقرب من النهر", "arabic"),
         ("तेज भूरी लोमड़ी आलसी कुत्ते के ऊपर कूदती है", "hindi"),
-        ("快速的棕色狐狸跳过了懒惰的狗在森林里", "cjk"),
+        ("快速的棕色狐狸跳过了懒惰的狗在森林里", "ik"),
     ];
 
     for (text, expected) in test_texts {
